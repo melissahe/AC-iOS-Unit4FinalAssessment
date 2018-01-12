@@ -13,7 +13,8 @@ enum AnimationName: String {
     case horizontal = "Horizontal Position"
     case vertical = "Vertical Position"
     case rotationX = "Rotation-X"
-    
+    case rotationY = "Rotation-Y"
+    case rotationZ = "Rotation-Z"
 }
 
 class AnimationDataModel {
@@ -24,18 +25,26 @@ class AnimationDataModel {
     
     var defaultAnimations: [Animation] = [
         //Width
-        Animation(name: AnimationName.Width.rawValue, widthMultiplier: 2.0, heightMultiplier: 1, horizontalOffset: 0, verticalOffset: 0, numberOfFlips: 0),
+        Animation(name: AnimationName.Width.rawValue, widthMultiplier: 2.0, heightMultiplier: 1, horizontalOffset: 0, verticalOffset: 0, numberOfFlips: 0, numberOfSpins: 0, numberOfRotations: 0, duration: 1.5),
         //Height
-        Animation(name: AnimationName.Height.rawValue, widthMultiplier: 1, heightMultiplier: 2.0, horizontalOffset: 0, verticalOffset: 0, numberOfFlips: 0),
+        Animation(name: AnimationName.Height.rawValue, widthMultiplier: 1, heightMultiplier: 2.0, horizontalOffset: 0, verticalOffset: 0, numberOfFlips: 0, numberOfSpins: 0, numberOfRotations: 0, duration: 1.5),
         
         //Horizontal Position
-        Animation(name: AnimationName.horizontal.rawValue, widthMultiplier: 1, heightMultiplier: 1, horizontalOffset: 100, verticalOffset: 0, numberOfFlips: 0),
+        Animation(name: AnimationName.horizontal.rawValue, widthMultiplier: 1, heightMultiplier: 1, horizontalOffset: 100, verticalOffset: 0, numberOfFlips: 0, numberOfSpins: 0, numberOfRotations: 0, duration: 1.5),
         
         //Vertical Position
-        Animation(name: AnimationName.vertical.rawValue, widthMultiplier: 1, heightMultiplier: 1, horizontalOffset: 0, verticalOffset: -100, numberOfFlips: 0),
+        Animation(name: AnimationName.vertical.rawValue, widthMultiplier: 1, heightMultiplier: 1, horizontalOffset: 0, verticalOffset: -100, numberOfFlips: 0, numberOfSpins: 0, numberOfRotations: 0, duration: 1.5),
         
         //Rotation-X
-        Animation(name: AnimationName.rotationX.rawValue, widthMultiplier: 1, heightMultiplier: 1, horizontalOffset: 0, verticalOffset: 0, numberOfFlips: 1)
+        Animation(name: AnimationName.rotationX.rawValue, widthMultiplier: 1, heightMultiplier: 1, horizontalOffset: 0, verticalOffset: 0, numberOfFlips: 1, numberOfSpins: 0, numberOfRotations: 0, duration: 1.5),
+        
+        //Extra Credit
+        
+        //Rotation-Y
+        Animation(name: AnimationName.rotationY.rawValue, widthMultiplier: 1, heightMultiplier: 1, horizontalOffset: 0, verticalOffset: 0, numberOfFlips: 0, numberOfSpins: 1, numberOfRotations: 0, duration: 1.5),
+        
+        //Rotation-Z
+        Animation(name: AnimationName.rotationZ.rawValue, widthMultiplier: 1, heightMultiplier: 1, horizontalOffset: 0, verticalOffset: 0, numberOfFlips: 0, numberOfSpins: 0, numberOfRotations: 1, duration: 1.5)
     ]
     
     private var customAnimations: [Animation] = [] //user added

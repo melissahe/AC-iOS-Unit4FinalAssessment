@@ -8,11 +8,6 @@
 
 import UIKit
 
-//to set up - should be the data source variable for the picker view
-//animations should always have autoreverse so they return to the center
-
-//should have group animations - each using a part of these values - keypath will be decided in those values
-
 struct Animation: Codable {
     let name: String
     let widthMultiplier: CGFloat
@@ -21,9 +16,10 @@ struct Animation: Codable {
     let verticalOffset: CGFloat
     let numberOfFlips: Float
     
-    //add other properties? - Extra Credit?
-//    let duration: Double
-//    let delay???
+    //Extra Credit
+    let numberOfSpins: Float
+    let numberOfRotations: Float
+    let duration: Double
     
     static func generateAnimation(with animation: Animation) -> CAAnimationGroup {
         
@@ -55,7 +51,7 @@ struct Animation: Codable {
         verticalOffsetAnimation.toValue = animation.verticalOffset
         verticalOffsetAnimation.repeatCount = 0
         
-        var animations: [CABasicAnimation] = [
+        let animations: [CABasicAnimation] = [
             widthAnimation,
             heightAnimation,
             horizontalOffsetAnimation,
@@ -76,9 +72,31 @@ struct Animation: Codable {
             groupAnimation.animations?.append(flipsAnimation)
         }
         
-        //to do - extra credit
-        groupAnimation.duration = 2.0
-        //maybe delay?
+        //Extra Credit
+        //Number Of Spins
+        if animation.numberOfSpins > 0 {
+            
+            let spinsAnimation = CABasicAnimation(keyPath: "transform.rotation.y")
+            
+            spinsAnimation.fromValue = 0
+            spinsAnimation.toValue = Float.pi * animation.numberOfSpins
+            
+            groupAnimation.animations?.append(spinsAnimation)
+        }
+        
+        //Number Of Rotations
+        if animation.numberOfRotations > 0 {
+            
+            let rotationsAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+            
+            rotationsAnimation.fromValue = 0
+            rotationsAnimation.toValue = Float.pi * animation.numberOfRotations
+            
+            groupAnimation.animations?.append(rotationsAnimation)
+        }
+        
+        //Duration
+        groupAnimation.duration = animation.duration
         
         groupAnimation.autoreverses = true
         

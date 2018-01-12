@@ -82,7 +82,7 @@ class AnimationView: UIView {
         playButton.translatesAutoresizingMaskIntoConstraints = false
         
         playButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        playButton.topAnchor.constraint(equalTo: animationPickerView.bottomAnchor, constant: 16).isActive = true
+        playButton.topAnchor.constraint(equalTo: animationPickerView.bottomAnchor, constant: 10).isActive = true
         playButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16).isActive = true
         playButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.10).isActive = true
     }

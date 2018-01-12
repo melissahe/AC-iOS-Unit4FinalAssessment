@@ -8,9 +8,6 @@
 
 import UIKit
 
-//create a settings delegate that the file manager helper conforms to, when the settings change, it should make the delegate update its saved array of animations
-//in the view did load/appear of the animation view controller, it should grab the array from the file manager
-
 enum PropertyName: String {
     case widthMultiplier = "Width Multiplier"
     case heightMultiplier = "Height Multiplier"
@@ -18,6 +15,10 @@ enum PropertyName: String {
     case verticalOffset = "Vertical Offset"
     case numberOfFlips = "Number Of Flips"
     
+    //Extra Credit
+    case numberOfSpins = "Number Of Spins"
+    case numberOfRotations = "Number Of Rotations"
+    case duration = "Duration"
 }
 
 struct AnimationProperty {
@@ -35,21 +36,29 @@ class SettingsViewController: UIViewController {
             [AnimationProperty(name: .widthMultiplier, stepperMin: 0.1, stepperMax: 2.0, stepperIncrement: 0.1, startingStepperVal: 1.0),
              AnimationProperty(name: .heightMultiplier, stepperMin: 0.1, stepperMax: 2.0, stepperIncrement: 0.1, startingStepperVal: 1.0)
             ],
-            [AnimationProperty(name: .horizontalOffset, stepperMin: -100.0, stepperMax: 100.0, stepperIncrement: 20.0, startingStepperVal: 0.0), AnimationProperty(name: .verticalOffset, stepperMin: -100.0, stepperMax: 100.0, stepperIncrement: 20.0, startingStepperVal: 0.0)
+            
+            [AnimationProperty(name: .horizontalOffset, stepperMin: -100.0, stepperMax: 100.0, stepperIncrement: 20.0, startingStepperVal: 0.0),
+             AnimationProperty(name: .verticalOffset, stepperMin: -100.0, stepperMax: 100.0, stepperIncrement: 20.0, startingStepperVal: 0.0)
             ],
-            [AnimationProperty(name: .numberOfFlips, stepperMin: 0, stepperMax: 10.0, stepperIncrement: 1.0, startingStepperVal: 0.0)]
+            
+            [AnimationProperty(name: .numberOfFlips, stepperMin: 0, stepperMax: 10.0, stepperIncrement: 1.0, startingStepperVal: 0.0)],
+            
+            //Extra Credit
+            [AnimationProperty(name: .numberOfSpins, stepperMin: 0, stepperMax: 10.0, stepperIncrement: 1.0, startingStepperVal: 0.0),
+             AnimationProperty(name: .numberOfRotations, stepperMin: 0, stepperMax: 10.0, stepperIncrement: 1.0, startingStepperVal: 0.0),
+             AnimationProperty(name: .duration, stepperMin: 0, stepperMax: 5.0, stepperIncrement: 0.1, startingStepperVal: 1.0)
+            ]
     ]
     
     lazy var tableView: UITableView = {
         let tv = UITableView()
+        
         tv.dataSource = self
         tv.delegate = self
-
-        //I didn't register a cell with the table view here because I didn't need a cell with a reusable identifier - at least, not yet
         
-        //check extra credit - 2 additional animations dimensions? - is that two extra settings?
-            //possible settings - maybe duration and delay? - should be double
-            //this would need to change my animation model
+        tv.isScrollEnabled = false
+        
+        tv.register(SettingsTableViewCell.self, forCellReuseIdentifier: "settingsCell")
         
         return tv
     }()
@@ -77,7 +86,6 @@ class SettingsViewController: UIViewController {
     }
     
     @objc func addSettingsAnimation() {
-        //set up an alert that presents (should have title, text label, and options below; cancel on left, OK on right; completion handler of okay should trigger save using delegate), and takes in a name
         
         let alertController = UIAlertController(title: "Add Setting", message: "Give your custom settings a name!", preferredStyle: .alert)
         
@@ -94,10 +102,20 @@ class SettingsViewController: UIViewController {
             let horizontalCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! SettingsTableViewCell
             let verticalCell = self.tableView.cellForRow(at: IndexPath(row: 1, section: 1)) as! SettingsTableViewCell
             let flipsCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as! SettingsTableViewCell
+            let spinsCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 3)) as! SettingsTableViewCell
+            let rotationsCell = self.tableView.cellForRow(at: IndexPath(row: 1, section: 3)) as! SettingsTableViewCell
+            let durationCell = self.tableView.cellForRow(at: IndexPath(row: 2, section: 3)) as! SettingsTableViewCell
             
-            let animation = Animation(name: alertController.textFields![0].text!, widthMultiplier: CGFloat(widthCell.stepper.value), heightMultiplier: CGFloat(heightCell.stepper.value), horizontalOffset: CGFloat(horizontalCell.stepper.value), verticalOffset: CGFloat(verticalCell.stepper.value), numberOfFlips: Float(flipsCell.stepper.value))
+            let animation = Animation(name: alertController.textFields![0].text!, widthMultiplier: CGFloat(widthCell.stepper.value), heightMultiplier: CGFloat(heightCell.stepper.value), horizontalOffset: CGFloat(horizontalCell.stepper.value), verticalOffset: CGFloat(verticalCell.stepper.value), numberOfFlips: Float(flipsCell.stepper.value), numberOfSpins: Float(spinsCell.stepper.value), numberOfRotations: Float(rotationsCell.stepper.value), duration: durationCell.stepper.value)
             
             AnimationDataModel.manager.addAnimation(fromSettings: animation)
+        
+            let completionAlertController = UIAlertController(title: "Wooooooww", message: "\"\(alertController.textFields![0].text!)???\"\n😂😂 That's a good name??? 😂😂", preferredStyle: .alert)
+            
+            completionAlertController.addAction(UIAlertAction(title: "smh why you gotta do dis 😭", style: .default, handler: nil))
+            
+            self.present(completionAlertController, animated: true, completion: nil)
+        
         }))
 
         self.present(alertController, animated: true, completion: nil)
@@ -115,7 +133,7 @@ extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let property = properties[indexPath.section][indexPath.row]
-        let cell = SettingsTableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "settingsCell", for: indexPath) as! SettingsTableViewCell
         
         cell.configureSelf(with: property)
         
@@ -129,21 +147,24 @@ extension SettingsViewController: UITableViewDataSource {
 }
 
 extension SettingsViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
             return "Size Settings"
         case 1:
             return "Position Settings"
+        case 3:
+            return "😂 Extra Credit Settings 😂"
         default:
             return "Other Settings"
         }
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
-    
-    //do some stuff that also enables you to save all the current settings - like a button or w/e
+
 }
 
 

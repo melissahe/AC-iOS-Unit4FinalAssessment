@@ -28,13 +28,7 @@ struct AnimationProperty {
     let startingStepperVal: Double
 }
 
-protocol SettingsViewControllerDelegate: class {
-    func addAnimation(fromSettings animation: Animation)
-}
-
 class SettingsViewController: UIViewController {
-
-    var delegate: SettingsViewControllerDelegate?
     
     var properties: [[AnimationProperty]] =
         [
@@ -103,7 +97,7 @@ class SettingsViewController: UIViewController {
             
             let animation = Animation(name: alertController.textFields![0].text!, widthMultiplier: CGFloat(widthCell.stepper.value), heightMultiplier: CGFloat(heightCell.stepper.value), horizontalOffset: CGFloat(horizontalCell.stepper.value), verticalOffset: CGFloat(verticalCell.stepper.value), numberOfFlips: Float(flipsCell.stepper.value))
             
-            self.delegate?.addAnimation(fromSettings: animation)
+            FileManagerHelper.manager.addAnimation(fromSettings: animation)
         }))
 
         self.present(alertController, animated: true, completion: nil)

@@ -14,6 +14,7 @@ class SettingsTableViewCell: UITableViewCell {
         let label = UILabel()
         
         label.setContentHuggingPriority(UILayoutPriority(rawValue: 252), for: .horizontal)
+        label.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 751), for: .horizontal)
         label.textAlignment = .left
         
         return label
@@ -23,8 +24,8 @@ class SettingsTableViewCell: UITableViewCell {
         let label = UILabel()
         
         label.setContentHuggingPriority(UILayoutPriority(rawValue: 251), for: .horizontal)
+        label.lineBreakMode = .byCharWrapping
         label.textAlignment = .left
-        label.text = "0" //DELETE LATER
         
         return label
     }()
@@ -50,6 +51,8 @@ class SettingsTableViewCell: UITableViewCell {
     func configureSelf(with property: AnimationProperty) {
         settingsNameLabel.text = property.name.rawValue + ":"
         
+        settingsValueLabel.text = property.startingStepperVal.description
+        
         stepper.minimumValue = property.stepperMin
         stepper.maximumValue = property.stepperMax
         stepper.stepValue = property.stepperIncrement
@@ -62,8 +65,8 @@ class SettingsTableViewCell: UITableViewCell {
     
     private func commonInit() {
         setUpSettingsNameLabel()
-        setUpSettingsValueLabel()
         setUpStepper()
+        setUpSettingsValueLabel()
     }
     
     //Constraints
@@ -76,16 +79,6 @@ class SettingsTableViewCell: UITableViewCell {
         settingsNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
         settingsNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
     }
-
-    private func setUpSettingsValueLabel() {
-        contentView.addSubview(settingsValueLabel)
-        
-        settingsValueLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        settingsValueLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
-        settingsValueLabel.leadingAnchor.constraint(equalTo: settingsNameLabel.trailingAnchor, constant: 5).isActive = true
-        settingsValueLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
-    }
     
     private func setUpStepper() {
         contentView.addSubview(stepper)
@@ -94,6 +87,17 @@ class SettingsTableViewCell: UITableViewCell {
         
         stepper.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         stepper.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true
+    }
+ 
+    private func setUpSettingsValueLabel() {
+        contentView.addSubview(settingsValueLabel)
+        
+        settingsValueLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        settingsValueLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
+        settingsValueLabel.leadingAnchor.constraint(equalTo: settingsNameLabel.trailingAnchor, constant: 5).isActive = true
+        settingsValueLabel.trailingAnchor.constraint(equalTo: stepper.leadingAnchor, constant: -40).isActive = true
+        settingsValueLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
     }
     
 }

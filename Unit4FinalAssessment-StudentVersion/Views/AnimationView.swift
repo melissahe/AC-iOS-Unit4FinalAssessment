@@ -23,7 +23,7 @@ class AnimationView: UIView {
     lazy var animationPickerView: UIPickerView = {
         let pickerView = UIPickerView()
         
-        //SET UP DELEGATE!! (in the view controller)
+        //SET UP DELEGATE!! (in the view controller? - maybe in the file manager instead?)
         
         return pickerView
     }()

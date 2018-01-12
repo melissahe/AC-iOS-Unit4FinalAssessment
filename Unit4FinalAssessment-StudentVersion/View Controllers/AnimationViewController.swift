@@ -35,7 +35,7 @@ class AnimationViewController: UIViewController {
         animationView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
     
-    //should grab data source variable from settings
+    //should grab data source variable from filemanager!!!
     func setUpPickerView() {
         
         

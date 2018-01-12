@@ -8,9 +8,16 @@
 
 import UIKit
 
+//create a settings delegate that the file manager helper conforms to, when the settings change, it should make the delegate update its saved array of animations
+//in the view did load/appear of the animation view controller, it should grab the array from the file manager
+
 enum PropertyName: String {
     case widthMultiplier = "Width Multiplier"
-    //TO DO: Add other PropertyName Cases
+    case heightMultiplier = "Height Multiplier"
+    case horizontalOffset = "Horizontal Offset"
+    case verticalOffset = "Vertical Offset"
+    case numberOfFlips = "Number Of Flips"
+    
 }
 
 struct AnimationProperty {
@@ -24,12 +31,14 @@ struct AnimationProperty {
 class SettingsViewController: UIViewController {
 
     //TO DO: Add more properties
-    //reference the properties in the animation view controller!
     var properties: [[AnimationProperty]] =
     [
-        [AnimationProperty(name: .widthMultiplier, stepperMin: 0, stepperMax: 1.0, stepperIncrement: 0.1, startingStepperVal: 0.0)]
+        [AnimationProperty(name: .widthMultiplier, stepperMin: 0.1, stepperMax: 2.0, stepperIncrement: 0.1, startingStepperVal: 0.0)],
+        [AnimationProperty(name: .heightMultiplier, stepperMin: 0.1, stepperMax: 2.0, stepperIncrement: 0.1, startingStepperVal: 0.0)],
+        [AnimationProperty(name: .horizontalOffset, stepperMin: -100.0, stepperMax: 100.0, stepperIncrement: 20.0, startingStepperVal: 0.0)],
+        [AnimationProperty(name: .verticalOffset, stepperMin: -100.0, stepperMax: 100.0, stepperIncrement: 20.0, startingStepperVal: 0.0)],
+        [AnimationProperty(name: .numberOfFlips, stepperMin: 0, stepperMax: 10.0, stepperIncrement: 1.0, startingStepperVal: 0.0)]
     ]
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,11 +55,13 @@ class SettingsViewController: UIViewController {
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
+    
+    //to do - CREATE CUSTOM CELL!!
     lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.dataSource = self
         tv.delegate = self
-        //TO DO: Register your subclass
+        //TO DO: Register your subclass - only if you need a reuse identifier i think; since there is a limited amount of cells, maybe i don't need one?
         return tv
     }()
 }
@@ -74,9 +85,10 @@ extension SettingsViewController: UITableViewDataSource {
 extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0:
+        case 0, 1:
             return "Size Settings"
-        //TO DO: Handle other sections
+        case 2, 3:
+            return "Position Settings"
         default:
             return "Other Settings"
         }
@@ -84,6 +96,8 @@ extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
+    
+    //do some stuff that also enables you to save all the current settings - like a button or w/e
 }
 
 

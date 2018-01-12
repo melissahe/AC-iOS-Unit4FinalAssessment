@@ -13,6 +13,8 @@
 		54AE10362007F256005FFA29 /* AnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54AE10352007F256005FFA29 /* AnimationViewController.swift */; };
 		54AE10382007F270005FFA29 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54AE10372007F270005FFA29 /* SettingsViewController.swift */; };
 		8146B61E20090C46001F89C7 /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8146B61D20090C46001F89C7 /* AnimationView.swift */; };
+		8146B6202009136C001F89C7 /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8146B61F2009136C001F89C7 /* FileManagerHelper.swift */; };
+		8146B6222009142C001F89C7 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8146B6212009142C001F89C7 /* Animation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		54AE10352007F256005FFA29 /* AnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationViewController.swift; sourceTree = "<group>"; };
 		54AE10372007F270005FFA29 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		8146B61D20090C46001F89C7 /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
+		8146B61F2009136C001F89C7 /* FileManagerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerHelper.swift; sourceTree = "<group>"; };
+		8146B6212009142C001F89C7 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,8 @@
 		8146B61C20090C2B001F89C7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8146B61F2009136C001F89C7 /* FileManagerHelper.swift */,
+				8146B6212009142C001F89C7 /* Animation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -170,9 +176,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8146B6202009136C001F89C7 /* FileManagerHelper.swift in Sources */,
 				54AE10242007F203005FFA29 /* AppDelegate.swift in Sources */,
 				8146B61E20090C46001F89C7 /* AnimationView.swift in Sources */,
 				54AE10362007F256005FFA29 /* AnimationViewController.swift in Sources */,
+				8146B6222009142C001F89C7 /* Animation.swift in Sources */,
 				54AE10382007F270005FFA29 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

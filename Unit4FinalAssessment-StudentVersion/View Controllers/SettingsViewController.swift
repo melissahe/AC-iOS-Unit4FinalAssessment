@@ -24,6 +24,7 @@ struct AnimationProperty {
 class SettingsViewController: UIViewController {
 
     //TO DO: Add more properties
+    //reference the properties in the animation view controller!
     var properties: [[AnimationProperty]] =
     [
         [AnimationProperty(name: .widthMultiplier, stepperMin: 0, stepperMax: 1.0, stepperIncrement: 0.1, startingStepperVal: 0.0)]

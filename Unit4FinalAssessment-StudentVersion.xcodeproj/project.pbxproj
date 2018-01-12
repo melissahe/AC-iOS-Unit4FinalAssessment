@@ -15,6 +15,7 @@
 		8146B61E20090C46001F89C7 /* AnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8146B61D20090C46001F89C7 /* AnimationView.swift */; };
 		8146B6202009136C001F89C7 /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8146B61F2009136C001F89C7 /* FileManagerHelper.swift */; };
 		8146B6222009142C001F89C7 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8146B6212009142C001F89C7 /* Animation.swift */; };
+		8146B62420091941001F89C7 /* SettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8146B62320091941001F89C7 /* SettingsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		8146B61D20090C46001F89C7 /* AnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationView.swift; sourceTree = "<group>"; };
 		8146B61F2009136C001F89C7 /* FileManagerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerHelper.swift; sourceTree = "<group>"; };
 		8146B6212009142C001F89C7 /* Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		8146B62320091941001F89C7 /* SettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				8146B61D20090C46001F89C7 /* AnimationView.swift */,
+				8146B62320091941001F89C7 /* SettingsTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				54AE10242007F203005FFA29 /* AppDelegate.swift in Sources */,
 				8146B61E20090C46001F89C7 /* AnimationView.swift in Sources */,
 				54AE10362007F256005FFA29 /* AnimationViewController.swift in Sources */,
+				8146B62420091941001F89C7 /* SettingsTableViewCell.swift in Sources */,
 				8146B6222009142C001F89C7 /* Animation.swift in Sources */,
 				54AE10382007F270005FFA29 /* SettingsViewController.swift in Sources */,
 			);

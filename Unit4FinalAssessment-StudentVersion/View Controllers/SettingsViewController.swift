@@ -30,14 +30,14 @@ struct AnimationProperty {
 
 class SettingsViewController: UIViewController {
 
-    //TO DO: Add more properties
     var properties: [[AnimationProperty]] =
-    [
-        [AnimationProperty(name: .widthMultiplier, stepperMin: 0.1, stepperMax: 2.0, stepperIncrement: 0.1, startingStepperVal: 0.0)],
-        [AnimationProperty(name: .heightMultiplier, stepperMin: 0.1, stepperMax: 2.0, stepperIncrement: 0.1, startingStepperVal: 0.0)],
-        [AnimationProperty(name: .horizontalOffset, stepperMin: -100.0, stepperMax: 100.0, stepperIncrement: 20.0, startingStepperVal: 0.0)],
-        [AnimationProperty(name: .verticalOffset, stepperMin: -100.0, stepperMax: 100.0, stepperIncrement: 20.0, startingStepperVal: 0.0)],
-        [AnimationProperty(name: .numberOfFlips, stepperMin: 0, stepperMax: 10.0, stepperIncrement: 1.0, startingStepperVal: 0.0)]
+        [
+            [AnimationProperty(name: .widthMultiplier, stepperMin: 0.1, stepperMax: 2.0, stepperIncrement: 0.1, startingStepperVal: 0.0),
+             AnimationProperty(name: .heightMultiplier, stepperMin: 0.1, stepperMax: 2.0, stepperIncrement: 0.1, startingStepperVal: 0.0)
+            ],
+            [AnimationProperty(name: .horizontalOffset, stepperMin: -100.0, stepperMax: 100.0, stepperIncrement: 20.0, startingStepperVal: 0.0), AnimationProperty(name: .verticalOffset, stepperMin: -100.0, stepperMax: 100.0, stepperIncrement: 20.0, startingStepperVal: 0.0)
+            ],
+            [AnimationProperty(name: .numberOfFlips, stepperMin: 0, stepperMax: 10.0, stepperIncrement: 1.0, startingStepperVal: 0.0)]
     ]
     
     override func viewDidLoad() {
@@ -55,8 +55,6 @@ class SettingsViewController: UIViewController {
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
     }
     
-    
-    //to do - CREATE CUSTOM CELL!!
     lazy var tableView: UITableView = {
         let tv = UITableView()
         tv.dataSource = self
@@ -64,37 +62,44 @@ class SettingsViewController: UIViewController {
         //TO DO: Register your subclass - only if you need a reuse identifier i think; since there is a limited amount of cells, maybe i don't need one?
         return tv
     }()
+    
 }
 
 extension SettingsViewController: UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return properties.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //TO DO: Implement your Custom Cell that has a stepper
+        
         let property = properties[indexPath.section][indexPath.row]
-        let cell = UITableViewCell()
-        cell.textLabel?.text = property.name.rawValue
+        let cell = SettingsTableViewCell()
+        
+        cell.configureSelf(with: property)
+        
         return cell
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return properties[section].count
     }
+    
 }
 
 extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0, 1:
+        case 0:
             return "Size Settings"
-        case 2, 3:
+        case 1:
             return "Position Settings"
         default:
             return "Other Settings"
         }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 60
     }
     
     //do some stuff that also enables you to save all the current settings - like a button or w/e

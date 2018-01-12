@@ -1,24 +1,42 @@
 //
-//  FileManagerHelper.swift
+//  AnimationDataModel.swift
 //  Unit4FinalAssessment-StudentVersion
 //
 //  Created by C4Q on 1/12/18.
 //  Copyright © 2018 C4Q . All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-class FileManagerHelper {
+enum AnimationName: String {
+    case Width, Height
+    case horizontal = "Horizontal Position"
+    case vertical = "Vertical Position"
+    case rotationX = "Rotation-X"
+    
+}
+
+class AnimationDataModel {
     private init() {}
-    static let manager = FileManagerHelper()
+    static let manager = AnimationDataModel()
     
     private let filePathName = "CustomAnimations.plist"
     
     //there should be a list of predefined animations and custom animations that start with the list of animations?
-    private var defaultAnimations: [Animation] = [
-    
-        //to do - need to set up default values
+     var defaultAnimations: [Animation] = [
+        //Width
+        Animation(name: AnimationName.Width.rawValue, widthMultiplier: 2.0, heightMultiplier: 0, horizontalOffset: 0, verticalOffset: 0, numberOfFlips: 0),
+        //Height
+        Animation(name: AnimationName.Height.rawValue, widthMultiplier: 0, heightMultiplier: 2.0, horizontalOffset: 0, verticalOffset: 0, numberOfFlips: 0),
         
+        //Horizontal Position
+        Animation(name: AnimationName.horizontal.rawValue, widthMultiplier: 0, heightMultiplier: 0, horizontalOffset: 100, verticalOffset: 0, numberOfFlips: 0),
+        
+        //Vertical Position
+        Animation(name: AnimationName.vertical.rawValue, widthMultiplier: 0, heightMultiplier: 0, horizontalOffset: 0, verticalOffset: 100, numberOfFlips: 0),
+        
+        //Rotation-X
+        Animation(name: AnimationName.rotationX.rawValue, widthMultiplier: 0, heightMultiplier: 0, horizontalOffset: 0, verticalOffset: 0, numberOfFlips: 2) //probably shouldn't autoreverse????
     ]
     
     private var customAnimations: [Animation] = [] //user added

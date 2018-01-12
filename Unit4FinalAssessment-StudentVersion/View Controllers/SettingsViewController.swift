@@ -97,7 +97,7 @@ class SettingsViewController: UIViewController {
             
             let animation = Animation(name: alertController.textFields![0].text!, widthMultiplier: CGFloat(widthCell.stepper.value), heightMultiplier: CGFloat(heightCell.stepper.value), horizontalOffset: CGFloat(horizontalCell.stepper.value), verticalOffset: CGFloat(verticalCell.stepper.value), numberOfFlips: Float(flipsCell.stepper.value))
             
-            FileManagerHelper.manager.addAnimation(fromSettings: animation)
+            AnimationDataModel.manager.addAnimation(fromSettings: animation)
         }))
 
         self.present(alertController, animated: true, completion: nil)

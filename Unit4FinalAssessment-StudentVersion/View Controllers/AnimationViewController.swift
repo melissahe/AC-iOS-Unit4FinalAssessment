@@ -55,11 +55,11 @@ class AnimationViewController: UIViewController {
         animationView.animationPickerView.dataSource = self
     }
     
-    //to do
     func setUpPlayButton() {
         animationView.playButton.addTarget(self, action: #selector(playButtonPressed(_:)), for: .touchUpInside)
     }
     
+    //MARK: - Animation Functions
     @objc func playButtonPressed(_ sender: UIButton) {
         print("play button pressed!!")
         
@@ -71,20 +71,36 @@ class AnimationViewController: UIViewController {
         //changing images
         if sender.imageView?.image == #imageLiteral(resourceName: "play") {
             sender.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
-            self.animationView.snowmanImageView.layer.add(animation, forKey: nil)
+            startAnimation(with: animation)
         } else if sender.imageView?.image == #imageLiteral(resourceName: "pause") {
             sender.setImage(#imageLiteral(resourceName: "resume"), for: .normal)
+            pauseAnimation(for: self.animationView.snowmanImageView.layer)
         } else if sender.imageView?.image == #imageLiteral(resourceName: "resume") {
             sender.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+            resumeAnimation(for: self.animationView.snowmanImageView.layer)
         }
         
     }
     
-    //create start animation
+    //functions given in assessment
+    func startAnimation(with animation: CAAnimationGroup) {
+        self.animationView.snowmanImageView.layer.add(animation, forKey: nil)
+    }
     
-    //create pause animation
+    func pauseAnimation(for layer: CALayer) {
+        let pausedTime = layer.convertTime(CACurrentMediaTime(), from: nil)
+        layer.speed = 0
+        layer.timeOffset = pausedTime
+    }
     
-    //create resume animation
+    func resumeAnimation(for layer: CALayer) {
+        let pausedTime = layer.timeOffset
+        layer.speed = 1
+        layer.timeOffset = 0
+        layer.beginTime = 0
+        let timeSincePause = layer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
+        layer.beginTime = timeSincePause
+    }
     
 }
 

@@ -19,11 +19,71 @@ struct Animation: Codable {
     let heightMultiplier: CGFloat
     let horizontalOffset: CGFloat
     let verticalOffset: CGFloat
-    let numberOfFlips: Float //this would be the repeat times property for a flip animation
+    let numberOfFlips: Float
     
     //add other properties? - Extra Credit?
 //    let duration: Double
 //    let delay???
+    
+    static func generateAnimation(with animation: Animation) -> CAAnimationGroup {
+        
+        //Width
+        let widthAnimation = CABasicAnimation(keyPath: "transform.scale.x")
+        
+        widthAnimation.fromValue = 1
+        widthAnimation.toValue = animation.widthMultiplier
+        widthAnimation.repeatCount = 0
+        
+        //Height
+        let heightAnimation = CABasicAnimation(keyPath: "transform.scale.y")
+
+        heightAnimation.fromValue = 1
+        heightAnimation.toValue = animation.heightMultiplier
+        heightAnimation.repeatCount = 0
+        
+        //Horizontal Offset
+        let horizontalOffsetAnimation = CABasicAnimation(keyPath: "transform.translation.x")
+        
+        horizontalOffsetAnimation.fromValue = 0
+        horizontalOffsetAnimation.toValue = animation.horizontalOffset
+        horizontalOffsetAnimation.repeatCount = 0
+        
+        //Vertical Offset
+        let verticalOffsetAnimation = CABasicAnimation(keyPath: "transform.translation.y")
+        
+        verticalOffsetAnimation.fromValue = 0
+        verticalOffsetAnimation.toValue = animation.verticalOffset
+        verticalOffsetAnimation.repeatCount = 0
+        
+        var animations: [CABasicAnimation] = [
+            widthAnimation,
+            heightAnimation,
+            horizontalOffsetAnimation,
+            verticalOffsetAnimation,
+            ]
+        
+        let groupAnimation = CAAnimationGroup()
+        groupAnimation.animations = animations
+        
+        //Number Of Flips
+        if animation.numberOfFlips > 0 {
+            
+            let flipsAnimation = CABasicAnimation(keyPath: "transform.rotation.x")
+            
+            flipsAnimation.fromValue = 0
+            flipsAnimation.toValue = Float.pi * animation.numberOfFlips
+            
+            groupAnimation.animations?.append(flipsAnimation)
+        }
+        
+        //to do - extra credit
+        groupAnimation.duration = 2.0
+        //maybe delay?
+        
+        groupAnimation.autoreverses = true
+        
+        return groupAnimation
+    }
 
 }
 

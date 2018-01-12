@@ -19,13 +19,19 @@ class AnimationView: UIView {
         return imageView
     }()
     
-    //set up data source variable for this somehow, settings must somehow (maybe through custom delegation) pass whatever user saves into 
     lazy var animationPickerView: UIPickerView = {
         let pickerView = UIPickerView()
         
-        //SET UP DELEGATE!! (in the view controller? - maybe in the file manager instead?)
-        
         return pickerView
+    }()
+    
+    lazy var playButton: UIButton = {
+        let button = UIButton()
+        
+        button.imageView?.contentMode = .scaleAspectFit
+        button.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+        
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -46,6 +52,7 @@ class AnimationView: UIView {
     private func setUpViews() {
         setUpSnowmanImageView()
         setUpAnimationPickerView()
+        setUpPlayButton()
     }
     
     private func setUpSnowmanImageView() {
@@ -56,7 +63,7 @@ class AnimationView: UIView {
         snowmanImageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         snowmanImageView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         snowmanImageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        snowmanImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.60).isActive = true
+        snowmanImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.55).isActive = true
     }
     
     private func setUpAnimationPickerView() {
@@ -67,8 +74,17 @@ class AnimationView: UIView {
         animationPickerView.topAnchor.constraint(equalTo: snowmanImageView.bottomAnchor, constant: 16).isActive = true
         animationPickerView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         animationPickerView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        animationPickerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+    }
+    
+    private func setUpPlayButton() {
+        addSubview(playButton)
         
+        playButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        playButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        playButton.topAnchor.constraint(equalTo: animationPickerView.bottomAnchor, constant: 16).isActive = true
+        playButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16).isActive = true
+        playButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.10).isActive = true
     }
     
 }

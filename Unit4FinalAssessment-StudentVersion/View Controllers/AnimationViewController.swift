@@ -12,7 +12,14 @@ class AnimationViewController: UIViewController {
     
     let animationView = AnimationView()
     
-    var animationProperties: [Animation] = [] //load from file manager!!!
+    var animations: [Animation] = []
+
+    var currentAnimation = AnimationDataModel.manager.getAnimations()[0] {
+        didSet {
+            animationView.snowmanImageView.layer.removeAllAnimations()
+            animationView.playButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +27,13 @@ class AnimationViewController: UIViewController {
         
         setUpAnimationView()
         setUpPickerView()
-
+        setUpPlayButton()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        setUpPickerView()
     }
     
     func setUpAnimationView() {
@@ -35,17 +48,76 @@ class AnimationViewController: UIViewController {
         animationView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
     
-    //should grab data source variable from filemanager!!!
     func setUpPickerView() {
+        self.animations = AnimationDataModel.manager.getAnimations()
         
-        
+        animationView.animationPickerView.delegate = self
+        animationView.animationPickerView.dataSource = self
     }
     
+    //to do
     func setUpPlayButton() {
+        animationView.playButton.addTarget(self, action: #selector(playButtonPressed(_:)), for: .touchUpInside)
+    }
+    
+    @objc func playButtonPressed(_ sender: UIButton) {
+        print("play button pressed!!")
+        
+        //create animation
+        let animation = Animation.generateAnimation(with: currentAnimation)
+        
+        animation.delegate = self
+        
+        //changing images
+        if sender.imageView?.image == #imageLiteral(resourceName: "play") {
+            sender.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+            self.animationView.snowmanImageView.layer.add(animation, forKey: nil)
+        } else if sender.imageView?.image == #imageLiteral(resourceName: "pause") {
+            sender.setImage(#imageLiteral(resourceName: "resume"), for: .normal)
+        } else if sender.imageView?.image == #imageLiteral(resourceName: "resume") {
+            sender.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+        }
         
     }
     
-    func setUpPauseButton() {
+    //create start animation
+    
+    //create pause animation
+    
+    //create resume animation
+    
+}
+
+extension AnimationViewController: UIPickerViewDelegate {
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let selectedAnimation = animations[row]
         
+        self.currentAnimation = selectedAnimation
+    }
+}
+
+extension AnimationViewController: UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return animations.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return animations[row].name
+    }
+    
+}
+
+//got the idea for this from https://stackoverflow.com/questions/296967/animation-end-callback-for-calayer - to get a completion block after animation completes
+extension AnimationViewController: CAAnimationDelegate {
+    
+    //resets button back to play image when animation is over
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        self.animationView.playButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
     }
 }

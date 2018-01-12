@@ -22,21 +22,20 @@ class AnimationDataModel {
     
     private let filePathName = "CustomAnimations.plist"
     
-    //there should be a list of predefined animations and custom animations that start with the list of animations?
-     var defaultAnimations: [Animation] = [
+    var defaultAnimations: [Animation] = [
         //Width
-        Animation(name: AnimationName.Width.rawValue, widthMultiplier: 2.0, heightMultiplier: 0, horizontalOffset: 0, verticalOffset: 0, numberOfFlips: 0),
+        Animation(name: AnimationName.Width.rawValue, widthMultiplier: 2.0, heightMultiplier: 1, horizontalOffset: 0, verticalOffset: 0, numberOfFlips: 0),
         //Height
-        Animation(name: AnimationName.Height.rawValue, widthMultiplier: 0, heightMultiplier: 2.0, horizontalOffset: 0, verticalOffset: 0, numberOfFlips: 0),
+        Animation(name: AnimationName.Height.rawValue, widthMultiplier: 1, heightMultiplier: 2.0, horizontalOffset: 0, verticalOffset: 0, numberOfFlips: 0),
         
         //Horizontal Position
-        Animation(name: AnimationName.horizontal.rawValue, widthMultiplier: 0, heightMultiplier: 0, horizontalOffset: 100, verticalOffset: 0, numberOfFlips: 0),
+        Animation(name: AnimationName.horizontal.rawValue, widthMultiplier: 1, heightMultiplier: 1, horizontalOffset: 100, verticalOffset: 0, numberOfFlips: 0),
         
         //Vertical Position
-        Animation(name: AnimationName.vertical.rawValue, widthMultiplier: 0, heightMultiplier: 0, horizontalOffset: 0, verticalOffset: 100, numberOfFlips: 0),
+        Animation(name: AnimationName.vertical.rawValue, widthMultiplier: 1, heightMultiplier: 1, horizontalOffset: 0, verticalOffset: -100, numberOfFlips: 0),
         
         //Rotation-X
-        Animation(name: AnimationName.rotationX.rawValue, widthMultiplier: 0, heightMultiplier: 0, horizontalOffset: 0, verticalOffset: 0, numberOfFlips: 2) //probably shouldn't autoreverse????
+        Animation(name: AnimationName.rotationX.rawValue, widthMultiplier: 1, heightMultiplier: 1, horizontalOffset: 0, verticalOffset: 0, numberOfFlips: 1)
     ]
     
     private var customAnimations: [Animation] = [] //user added
@@ -94,7 +93,6 @@ class AnimationDataModel {
     }
     
     //get
-    //data source variable in picker view
     func getAnimations() -> [Animation] {
         return defaultAnimations + customAnimations
     }

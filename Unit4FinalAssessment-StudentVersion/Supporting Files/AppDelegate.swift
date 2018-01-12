@@ -22,10 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         let tbc = UITabBarController()
         let avc = AnimationViewController()
-        avc.tabBarItem = UITabBarItem(title: "Animation", image: nil, tag: 0)
+        avc.tabBarItem = UITabBarItem(title: "Animation", image: #imageLiteral(resourceName: "animations"), tag: 0)
         let svc = SettingsViewController()
         let navCon = UINavigationController(rootViewController: svc)
-        navCon.tabBarItem = UITabBarItem(title: "Settings", image: nil, tag: 1)
+        navCon.tabBarItem = UITabBarItem(title: "Settings", image: #imageLiteral(resourceName: "settings"), tag: 1)
         tbc.viewControllers = [avc, navCon]
         window?.rootViewController = tbc
         window?.makeKeyAndVisible()
